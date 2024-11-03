@@ -50,7 +50,7 @@ class Driver:
     def find_by_license_number(cls, license_number: str) -> Optional['Driver']:
         """Finds a driver by their license number."""
         query = f"SELECT * FROM {cls.__tablename__} WHERE license_number = ?"
-        row = db.fetch_one(query, (license_number,))
+        row = db.q(query, (license_number,))
         return cls(**cls._parse_row(row)) if row else None
 
     def save(self) -> None:
