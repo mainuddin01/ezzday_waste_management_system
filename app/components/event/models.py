@@ -43,7 +43,7 @@ class Event:
     def find_all(cls):
         """Fetches all events from the database."""
         query = f"SELECT * FROM {cls.__tablename__}"
-        rows = db.fetch_all(query)
+        rows = db.q(query)
         return [cls(**cls._parse_row(row)) for row in rows]
 
     @classmethod

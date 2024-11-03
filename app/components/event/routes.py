@@ -17,9 +17,9 @@ def requires(roles, redirect=None):
     """Decorator to require specific user roles for access."""
     def decorator(func):
         async def wrapper(request, *args, **kwargs):
-            user_role = request.session.get("role")
+            user_role = request.session.get("user_role")
             if user_role in roles:
-                return await func(request, *args, **kwargs)
+                return await func(request)
             if redirect:
                 return RedirectResponse(redirect)
             return Titled("Unauthorized", Div(H1("Unauthorized"), P("You do not have permission to access this page.")))

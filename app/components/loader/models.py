@@ -49,7 +49,7 @@ class Loader:
     def find_by_name(cls, name: str) -> Optional['Loader']:
         """Finds a loader by name."""
         query = f"SELECT * FROM {cls.__tablename__} WHERE name = ?"
-        row = db.fetch_one(query, (name,))
+        row = db.q(query, (name,))
         if row:
             return cls(**row)
         return None

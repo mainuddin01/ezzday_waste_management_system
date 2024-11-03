@@ -39,7 +39,7 @@ class Report:
     def find_all(cls):
         """Fetches all reports from the database."""
         query = f"SELECT * FROM {cls.__tablename__} ORDER BY generated_at DESC"
-        rows = db.fetch_all(query)
+        rows = db.q(query)
         return [cls(**cls._parse_row(row)) for row in rows]
 
     @classmethod
