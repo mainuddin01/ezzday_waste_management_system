@@ -38,7 +38,7 @@ class Zone:
     def find_all(cls) -> List['Zone']:
         """Fetches all zones from the database."""
         query = f"SELECT * FROM {cls.__tablename__} ORDER BY created_at DESC"
-        rows = db.fetch_all(query)
+        rows = db.q(query)
         return [cls(**row) for row in rows]
 
     @classmethod
