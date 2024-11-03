@@ -33,7 +33,7 @@ class Loader:
     def find_all(cls):
         """Fetches all loaders from the database."""
         query = f"SELECT * FROM {cls.__tablename__}"
-        rows = db.fetch_all(query)
+        rows = db.q(query)
         return [cls(**row) for row in rows]
 
     @classmethod
