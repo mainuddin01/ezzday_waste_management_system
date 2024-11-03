@@ -19,7 +19,7 @@ def header_component(req):
             nav_links.extend([
                 Li(A("Clients", href="/clients")),
                 Li(A("Zones", href="/zones")),
-                Li(A("Routes", href="/routes")),
+                Li(A("Routes", href="/")),
                 Li(A("Crews", href="/crews")),
                 Li(A("Assignments", href="/assignments")),
                 Li(A("Fleet", href="/fleet")),
@@ -36,7 +36,7 @@ def header_component(req):
             nav_links.extend([
                 Li(A("Assignments", href="/assignments")),
                 Li(A("Zones", href="/zones")),
-                Li(A("Routes", href="/routes")),
+                Li(A("Routes", href="/")),
                 Li(A("Reports", href="/reports")),
                 Li(A("Issues", href="/issues")),
             ])
