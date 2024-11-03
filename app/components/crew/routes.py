@@ -17,9 +17,9 @@ def requires(roles, redirect=None):
     """Decorator to require specific user roles for access."""
     def decorator(func):
         async def wrapper(request, *args, **kwargs):
-            user_role = request.session.get("role")
+            user_role = request.session.get("user_role")
             if user_role in roles:
-                return await func(request, *args, **kwargs)
+                return await func(request)
             if redirect:
                 return RedirectResponse(redirect)
             return Titled("Unauthorized", Div(H1("Unauthorized"), P("You do not have permission to access this page.")))
@@ -42,7 +42,7 @@ def setup_routes(app):
 
     # Crew management routes
     @app.route("/crews", methods=["GET"])
-    @requires(["Admin", "Supervisor"], redirect="/auth/login")
+    @requires(["Admin"], redirect="/auth/login")
     async def list_crews(req):
         return await crew_list_view(req)
 

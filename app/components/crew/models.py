@@ -35,7 +35,7 @@ class Crew:
     def find_all(cls) -> List['Crew']:
         """Fetches all crews from the database."""
         query = f"SELECT * FROM {cls.__tablename__}"
-        rows = db.fetch_all(query)
+        rows = db.q(query)
         return [cls(**cls._parse_row(row)) for row in rows]
 
     @classmethod
