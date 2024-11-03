@@ -1,0 +1,39 @@
+version: "3.3"
+
+services:
+  ezzday_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ezzday_app_container
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app_data.db:/app/app_data.db
+      - ./logs:/app/logs
+    env_file:
+      - .env
+    environment:
+      DEBUG: "False"
+      LOG_LEVEL: "INFO"
+    depends_on:
+      - db
+
+  db:
+    image: nouchka/sqlite3
+    container_name: ezzday_db
+    volumes:
+      - ./app_data.db:/app_data.db
+
+  # Uncomment if you'd like to use a separate logging service (e.g., Elastic Stack, Fluentd, etc.)
+  # logging:
+  #   image: fluent/fluentd
+  #   container_name: ezzday_logging
+  #   ports:
+  #     - "24224:24224"
+  #   volumes:
+  #     - ./logs:/fluentd/log
+
+networks:
+  default:
+    driver: bridge

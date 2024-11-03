@@ -1,0 +1,13 @@
+uvicorn
+python-dotenv
+starlette
+jinja2
+aiofiles
+PyJWT
+httpx
+pytest
+python-fasthtml
+email-validator
+passlib[bcrypt]
+python-jose[cryptography]
+tilted
