@@ -50,7 +50,7 @@ def setup_routes(app):
         return await refresh_token_view(req)
 
     # Profile route
-    @app.route("/profile", methods=["GET"])
+    @app.route("/auth/profile", methods=["GET"])
     async def profile(req: Request):
         return await profile_view(req)
 

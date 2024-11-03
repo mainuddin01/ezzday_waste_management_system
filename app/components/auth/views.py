@@ -24,7 +24,7 @@ async def home_view(req: Request):
         content = [
             H1(f"Welcome back, {user.username}!"),
             P(f"Role: {user.role}"),
-            A("Profile", href="/profile", cls="link"),  # Changed to /profile
+            A("Profile", href="/auth/profile", cls="link"),  # Changed to /profile
             A("Logout", href="/auth/logout", cls="link")
         ]
     else:
