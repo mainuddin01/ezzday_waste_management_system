@@ -16,7 +16,7 @@ def requires(roles, redirect=None):
         async def wrapper(request, *args, **kwargs):
             user_role = request.session.get("user_role")  # Corrected key to match 'user_role' in session
             if user_role in roles:
-                return await func(request, *args, **kwargs)
+                return await func(request)
             if redirect:
                 return RedirectResponse(redirect)
             return Titled("Unauthorized", Div(H1("Unauthorized"), P("You do not have permission to access this page.")))
