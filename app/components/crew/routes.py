@@ -42,7 +42,7 @@ def setup_routes(app):
 
     # Crew management routes
     @app.route("/crews", methods=["GET"])
-    @requires(["Admin"], redirect="/auth/login")
+    @requires(["Admin", "Supervisor"], redirect="/auth/login")
     async def list_crews(req):
         return await crew_list_view(req)
 

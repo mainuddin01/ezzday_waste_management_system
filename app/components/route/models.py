@@ -34,7 +34,7 @@ class Route:
     def find_all(cls) -> List['Route']:
         """Fetches all routes from the database."""
         query = f"SELECT * FROM {cls.__tablename__}"
-        rows = db.fetch_all(query)
+        rows = db.q(query)
         return [cls(**row) for row in rows]
 
     @classmethod

@@ -56,7 +56,7 @@ class Assignment:
     def find_all_for_date(cls, assignment_date: date):
         """Fetches all assignments for a specific date."""
         query = f"SELECT * FROM {cls.__tablename__} WHERE doc = ?"
-        rows = db.q(query, (assignment_date.isoformat(),))  # Ensure date is in string format
+        rows = db.q(query, (assignment_date.format(),))  # Ensure date is in string format
         return [cls(**row) for row in rows]
 
     @classmethod
