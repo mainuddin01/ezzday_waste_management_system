@@ -61,7 +61,6 @@ class Driver:
             INSERT INTO {self.__tablename__} (name, license_number, license_expiry, last_medical_check)
             VALUES (?, ?, ?, ?)
             '''
-            params = (self.name, self.license_number, self.license_expiry, self.last_medical_check)
             self.id = db.t.drivers.insert(name=self.name, license_number=self.license_number, license_expiry=self.license_expiry, last_medical_check=self.last_medical_check)
         else:
             # Update existing driver
