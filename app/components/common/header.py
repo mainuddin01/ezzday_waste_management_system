@@ -4,6 +4,24 @@ from fasthtml.common import *
 from app.components.auth.models import User
 from app.components.auth.services import decode_token
 
+def genereate_submenu(title, item_list):
+    if type(title) is not str:
+        content = title
+        id = "custom"
+    else:
+        content = A(title, href="#")
+        id = title.replace(' ', '_')
+    return Li(
+                content,
+                Input(type="checkbox", id=id, cls="submenu-toggle"),
+                Label(For=id, cls="submenu-toggle-label"),
+                Ul(
+                    *item_list,
+                    cls="submenu"
+                ),
+                cls="has-submenu"
+            )
+
 def header_component(req):
     """Generates the header component with navigation links based on user role."""
     user = get_current_user(req)
@@ -12,24 +30,28 @@ def header_component(req):
     if user:
         # Common links for all authenticated users
         nav_links.append(Li(A("Home", href="/")))
-        nav_links.append(Li(A("Profile", href="/auth/profile")))
 
         if user.role == "Admin":
             # Admin-specific navigation links
             nav_links.extend([
-                Li(A("Clients", href="/clients")),
-                Li(A("Zones", href="/zones")),
-                Li(A("Routes", href="/")),
-                Li(A("Crews", href="/crews")),
                 Li(A("Assignments", href="/assignments")),
-                Li(A("Fleet", href="/fleet")),
-                Li(A("Drivers", href="/drivers")),
-                Li(A("Loaders", href="/loaders")),
-                Li(A("Schedules", href="/schedules")),
-                Li(A("Events", href="/events")),
                 Li(A("Reports", href="/reports")),
                 Li(A("Issues", href="/issues")),
-                Li(A("Users", href="/users")),
+                genereate_submenu("Settings", [
+                            Li(A("User Management", href="/users")),
+                            genereate_submenu("Configs", [
+                                Li(A("Clients", href="/clients")),
+                                Li(A("Zones", href="/zones")),
+                                Li(A("Routes", href="/")),
+                                Li(A("Crews", href="/crews")),
+                                Li(A("Fleet", href="/fleet")),
+                                Li(A("Drivers", href="/drivers")),
+                                Li(A("Loaders", href="/loaders")),
+                                Li(A("Schedules", href="/schedules")),
+                                Li(A("Events", href="/events")),
+                            ])
+                        ]
+                    ),
             ])
         elif user.role == "Supervisor":
             # Supervisor-specific navigation links
@@ -49,7 +71,10 @@ def header_component(req):
                 Li(A("Issues", href="/issues")),
             ])
         # Logout link
-        nav_links.append(Li(A("Logout", href="/auth/logout")))
+        nav_links.append(genereate_submenu(A(Img(src="/static/assets/user.png", cls="user-icon")), [
+                    Li(A("Profile", href="/auth/profile")),
+                    Li(A("Logout", href="/auth/logout"))
+                ]),)
     else:
         # Links for unauthenticated users
         nav_links.append(Li(A("Home", href="/")))
@@ -59,10 +84,12 @@ def header_component(req):
         Div(
             Nav(
                 A("eZzDay", href="/", cls="logo"),
-                Input(type="checkbox", id="nav-toggle"),
-                Label(Span(), For="nav-toggle", cls="nav-toggle-label"),
-                Ul(*nav_links, cls="nav-menu"),
-                cls="nav"
+                Input(type="checkbox", id="navigation-toggle", cls="navigation-toggle"),
+                Label(Span(), For="navigation-toggle", cls="navigation-toggle-label"),
+                Ul(
+                    *nav_links,
+                    cls="nav-menu"),
+                cls="navbar"
             ),
             cls="container"
         ),

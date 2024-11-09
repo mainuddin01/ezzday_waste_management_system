@@ -7,12 +7,6 @@ body {
     background-color: #f9f9f9;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
 /* Header Styles */
 .header {
     background-color: #004080;
@@ -41,13 +35,234 @@ body {
 }
 
 .nav-menu li {
-    margin-left: 20px;
+    padding: 0;
 }
 
 .nav-menu a {
     color: #fff;
     text-decoration: none;
     font-weight: 500;
+}
+
+/* added by mainuddin */
+  .navbar {
+    background-color: #004080;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  header.container {
+    padding: 0;
+  }
+
+  .navigation-toggle {
+    display: none;
+  }
+
+  [type=checkbox]~label.navigation-toggle-label {
+    display: none;
+    cursor: pointer;
+  }
+
+  .navigation-toggle-label span,
+  .navigation-toggle-label span::before,
+  .navigation-toggle-label span::after {
+    display: block;
+    background: #fff;
+    height: 2px;
+    width: 25px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .navigation-toggle-label span::before,
+  .navigation-toggle-label span::after {
+    content: '';
+    position: absolute;
+  }
+
+  .navigation-toggle-label span::before {
+    bottom: 8px;
+  }
+
+  .navigation-toggle-label span::after {
+    top: 8px;
+  }
+
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+  }
+
+  .nav-menu li {
+    display: block;
+  }
+
+  .nav-menu a {
+    text-decoration: none;
+    margin: 5px 0px;
+  }
+
+  .user-icon {
+    width: 35px;
+  }
+
+  .navbar a.active {
+        border: none;
+        color: #fff;
+    }
+
+  .nav-menu a:hover {
+    color: #fff !important;
+  }
+
+  .has-submenu {
+    position: relative;
+  }
+
+  .submenu .has-submenu {
+    position: relative;
+  }
+
+  .submenu-toggle {
+    display: none;
+  }
+
+  .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -110%;
+    background: #004080;
+    min-width: 220px;
+    list-style: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.9);
+    border-radius: 4px;
+  }
+
+  .submenu .submenu {
+    left: -95%;
+    top: 0;
+  }
+
+  .submenu li a {
+    display: block;
+    padding: 0.1rem 1rem;
+    white-space: nowrap;
+  }
+
+  .has-submenu:hover > .submenu {
+    display: block;
+  }
+
+  .submenu-toggle-label {
+    display: none;
+  }
+
+  footer p {
+    color: #fff;
+  }
+
+  a:has(.user-icon) ~ .submenu {
+    left: -250%;
+  }
+
+  @media screen and (max-width: 1180px) {
+    .nav-menu {
+      gap: 0.5rem;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    [type=checkbox]~label.navigation-toggle-label {
+        display: block;
+      }
+
+    nav li {
+        display: block;
+    }
+
+    .navbar {
+        flex-direction: row;
+    }
+
+    .navbar a {
+        margin: 0;
+    }
+
+    .nav-menu {
+      display: none;
+      width: 100%;
+      position: relative;
+      flex-direction: column;
+      padding: 1rem 1rem 0rem 1rem;
+      align-items: flex-start;
+    }
+
+    .navigation-toggle:checked ~ .nav-menu {
+      display: flex;
+    }
+
+    .submenu {
+      display: none;
+      position: static;
+      box-shadow: none;
+      background: transparent;
+      padding-left: 1rem;
+    }
+
+    .has-submenu {
+      position: relative;
+    }
+
+    .has-submenu > a {
+      display: inline-block;
+    }
+
+    .submenu-toggle-label {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      text-align: center;
+      line-height: 30px;
+    }
+
+    .submenu-toggle-label::after {
+      content: '+';
+      font-size: 20px;
+      color: #fff;
+    }
+
+    .submenu-toggle:checked ~ .submenu-toggle-label::after {
+      content: '-';
+    }
+
+    .has-submenu:hover .submenu {
+      display: none;
+    }
+
+    .submenu-toggle:checked ~ .submenu {
+      display: block;
+    }
+
+    .submenu li a {
+      padding: 0.5rem 1rem;
+      display: inline-block;
+    }
+
+    .user-icon {
+      width: 25px;
+    }
+  }
+/* end added by mainuddin */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .nav-toggle-label {
@@ -86,10 +301,12 @@ body {
     .nav-menu {
         flex-direction: column;
         display: none;
+        gap: 0;
     }
 
     .nav-menu li {
-        margin: 10px 0;
+        margin: 0px 0;
+        padding: 0;
     }
 
     .nav-toggle-label {
