@@ -39,7 +39,7 @@ def header_component(req):
                 Li(A("Issues", href="/issues")),
                 genereate_submenu("Settings", [
                             Li(A("User Management", href="/users")),
-                            genereate_submenu("Configs", [
+                            genereate_submenu("Configurations", [
                                 Li(A("Clients", href="/clients")),
                                 Li(A("Zones", href="/zones")),
                                 Li(A("Routes", href="/")),
