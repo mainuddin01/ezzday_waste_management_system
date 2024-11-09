@@ -31,6 +31,13 @@ def setup_routes(app):
             return await dispatch_dashboard_view(req)
         else:
             return RedirectResponse("/auth/login", status_code=303)
+        
+    @app.route("/users", methods=["GET"])
+    async def users(req: Request):
+        user_role = req.session.get("user_role")  # Use consistent session key
+        if user_role == "Admin":
+            from app.components.dashboard.views import user_management_view
+            return await user_management_view(req)
 
     # Authentication routes
     @app.route("/auth/register", methods=["GET", "POST"])

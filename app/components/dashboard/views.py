@@ -11,6 +11,40 @@ from starlette.requests import Request
 logger = logging.getLogger(__name__)
 
 # Admin Dashboard View
+async def user_management_view(req: Request):
+    """
+    Generates the user management view for admins to monitor and manage all users.
+    Only accessible by users with 'Admin' role.
+    """
+    user = get_current_user(req)
+    if user is None or user.role != "Admin":
+        logger.warning(f"Unauthorized access attempt to admin dashboard.")
+        return RedirectResponse("/auth/login", status_code=303)
+
+    try:
+        # Function-level imports to prevent circular dependencies
+        from app.components.auth.models import User
+
+        users = User.find_all()
+    except Exception as e:
+        logger.error(f"Error fetching data for user management view: {e}")
+        return page_view(req, "Error", [Div("An error occurred while loading the user items.")])
+
+    content = [
+        H2("User Management"),
+        Ul(*[
+            Li(
+                Div(f"User ID: {user.id}"),
+                Div(f"Username: {user.username}"),
+                Div(f"Role: {user.role}"),
+                Div(A("Edit User", href=f"/users/edit/{user.id}")),
+                Div(A("Delete User", href=f"/users/delete/{user.id}", cls="button small danger"))
+            ) for user in users
+        ]) if users else P("No users available."),
+    ]
+    return page_view(req, "Users", content)
+
+# Admin Dashboard View
 async def admin_dashboard_view(req: Request):
     """
     Generates the dashboard view for admins to monitor and manage all aspects of the system.
@@ -50,17 +84,7 @@ async def admin_dashboard_view(req: Request):
                 Div(f"Type: {truck.truck_type}"),
                 Div(f"Status: {truck.status}")
             ) for truck in trucks
-        ]) if trucks else P("No fleet vehicles available."),
-        H2("User Management"),
-        Ul(*[
-            Li(
-                Div(f"User ID: {user.id}"),
-                Div(f"Username: {user.username}"),
-                Div(f"Role: {user.role}"),
-                Div(A("Edit User", href=f"/users/edit/{user.id}")),
-                Div(A("Delete User", href=f"/users/delete/{user.id}", cls="button small danger"))
-            ) for user in users
-        ]) if users else P("No users available."),
+        ]) if trucks else P("No fleet vehicles available.")
     ]
     return page_view(req, "Admin Dashboard", content)
 
